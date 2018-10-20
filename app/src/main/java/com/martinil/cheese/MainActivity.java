@@ -19,11 +19,11 @@ public class MainActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private ImageView terra;
     private ImageView formatge1;
-    private int counter = 0;
+    private int counter = 100;
     private physics my_physics;
     private Queso my_ques;
     private ArrayList<Queso> Quesos = new ArrayList<>();
-    private int TempsAcc = 5000;
+    private int TempsAcc = 400;
     int width = 1920;
     int height = 1080;
 
@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable(){
             public void run() {
                 counter ++;
-                if(counter > TempsAcc*Math.random()){
+                if(counter > TempsAcc){
                     update(true);
                     counter = 0;
                 }
@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void update(Boolean updateAcc){
         if(updateAcc){
-            my_physics.actualitzar_accAngular();
+            actualitzar_velAngular(counter);
         }
         my_physics.actualitzar_Terra();
         rotarPla();
@@ -89,17 +89,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void actualitzar_velAngular(int i){
+        my_physics.velAngular = -my_physics.velAngular;
+    }
+
     private void rotarPla () {
-        terra.setRotation((float) my_physics.angle * 66);
+        terra.setRotation((float) (my_physics.angle * 180 / 3.141592));
     }
 
     private void moveQues(Queso cos) {
-        Log.i("POSX", String.valueOf(cos.X));
-        Log.i("POSY", String.valueOf(cos.Y));
+        //Log.i("POSX", String.valueOf(cos.X));
+        //Log.i("POSY", String.valueOf(cos.Y));
         cos.sprite.setX(my_physics.CoordsX(cos.X, cos.Y)*200 + width / 2 - (float) cos.radi * 200);
-        cos.sprite.setY(my_physics.CoordsY(cos.X, cos.Y)*200 + height/ 2 - (float) cos.radi * 2*200);
-        cos.sprite.setRotation((float)cos.rot * 66);
-        Log.i("cX", String.valueOf(cos.sprite.getX()));
-        Log.i("cY", String.valueOf(cos.sprite.getY()));
+        cos.sprite.setY(my_physics.CoordsY(cos.X, cos.Y)*200 + height/ 2 - (float) cos.radi * 200);
+        cos.sprite.setRotation((float)(cos.rot * 180 / 3.141592));
+        //Log.i("cX", String.valueOf(cos.sprite.getX()));
+        //Log.i("cY", String.valueOf(cos.sprite.getY()));
     }
 }

@@ -3,16 +3,20 @@ package com.martinil.cheese;
 import java.util.ArrayList;
 
 public class physics {
-    double dt = 40./1000.;
-    double c_reb = 0.35;
+    double dt = 40./1000.; //Ok
+    double c_reb = 0.35;  //Ok
     double accAngular = 0.;
-    double velAngular = 0.;
-    double angle = 0;
-    double FGrav = 9.81;
-    double factForca = 9.81;
-    double factSuavitat = 4;
-    double FSalt = 0.8;
-    double factAcc = 0.1;
+    double velAngular = 0.05;
+    double angle = 0; // Inicial, okei
+    double limit_baixada = 1.2; //Angle límit baixada
+    double limit_pujada = -1; //Angle límit pujada
+    double FGrav = 9.81; //Okei
+    double factForca = 9.81; //Okei
+    double factSuavitat = 4; //Okei
+    double FSalt = 0.8; //Okei
+    double factAcc = 0.;
+    double factVel = 0.05;
+    double factGrav = 0.35;
     ArrayList<Queso> cossos;
 
     public physics(ArrayList<Queso> cossos){
@@ -22,11 +26,14 @@ public class physics {
     public void actualitzar_Terra () {
         velAngular = velAngular + accAngular*dt;
         angle = angle + velAngular*dt;
+        if (angle > limit_baixada) { angle = limit_baixada;}
+        if (angle < limit_pujada) {angle = limit_pujada;}
     }
 
-    public void actualitzar_accAngular(){
-        accAngular = (Math.random()-.5)*factAcc;
-    }
+//    public void actualitzar_accAngular(){
+//        accAngular = (Math.random()-.5)*factAcc;
+//    }
+//
 
     public void actualitzar_queso (Queso cos) {
         cos.aX = cos.FX / cos.massa;
@@ -69,7 +76,7 @@ public class physics {
     }
 
     public void aplicarF (Queso cos) {
-        cos.FX = Math.sin(angle)*FGrav + FextX(cos.X);
+        cos.FX = Math.sin(angle)*FGrav* factGrav + FextX(cos.X);
         cos.FY = -Math.cos(angle)*FGrav;
     }
 
