@@ -3,16 +3,21 @@ package com.martinil.cheese;
 import java.util.ArrayList;
 
 public class physics {
-    double dt = 0.01;
-    double c_abs = 1.;
+    double dt = 40./1000.;
+    double c_reb = 0.35;
     double accAngular = 0.;
     double velAngular = 0.;
     double angle = 0;
     double FGrav = 9.81;
-    double factForca = 20;
+    double factForca = 9.81;
     double factSuavitat = 4;
-    double FSalt = 10;
-    ArrayList<Queso> cossos = new ArrayList<>();
+    double FSalt = 0.8;
+    double factAcc = 0.1;
+    ArrayList<Queso> cossos;
+
+    public physics(ArrayList<Queso> cossos){
+        this.cossos = cossos;
+    }
 
     public void actualitzar_Terra () {
         velAngular = velAngular + accAngular*dt;
@@ -20,7 +25,7 @@ public class physics {
     }
 
     public void actualitzar_accAngular(){
-        accAngular = (Math.random()-.7)*10;
+        accAngular = (Math.random()-.5)*factAcc;
     }
 
     public void actualitzar_queso (Queso cos) {
@@ -30,12 +35,15 @@ public class physics {
         cos.vY = cos.aY * dt + cos.vY;
         cos.X  = cos.vX * dt + cos.X;
         cos.Y  = cos.vY * dt + cos.Y;
-        cos.W  = Math.sqrt(cos.vX * cos.vX + cos.vY * cos.vY) / cos.radi;
+        if (cos.Y < 0){
+            cos.Y = 0;
+        }
+        cos.W  = cos.vX / cos.radi;
         cos.rot=  cos.W * dt + cos.rot;
     }
 
     public void colisions (Queso cos) {
-        for (int i = cos.id + 1; i <= cossos.size(); i++) {
+        for (int i = cos.id + 1; i < cossos.size(); i++) {
             Queso cos2 = cossos.get(i);
             double d = distancia(cos, cos2);
             if ( d <= cos.radi + cos2.radi) {
@@ -52,25 +60,34 @@ public class physics {
 
     public void colTerra (Queso cos) {
         if (cos.Y <= 0) {
-            cos.vY = -cos.vY * c_abs;
+            cos.vY = -cos.vY * c_reb;
         }
     }
 
     public double FextX(double posX){
-        return factForca*(0.5 - 1 / (1 + Math.exp((-(posX)) / factSuavitat));
+        return factForca*(0.5 - 1 / (1 + Math.exp((-(posX)) / factSuavitat)));
     }
 
     public void aplicarF (Queso cos) {
-        cos.FX = Math.sin(angle)*FGrav+FextX(cos.X);
-        cos.FY = Math.cos(angle)*FGrav;
+        cos.FX = Math.sin(angle)*FGrav + FextX(cos.X);
+        cos.FY = -Math.cos(angle)*FGrav;
     }
 
     public void saltar(Queso cos) {
-        if cos.Y < 5:
+        if (cos.Y < 0.1) {
             cos.vY = FSalt * cos.massa;
+        }
     }
 
-    public double distancia(Queso i, Queso j) {
+    public double distancia (Queso i, Queso j) {
         return Math.sqrt(Math.pow(i.X - j.X, 2) + Math.pow(i.Y - j.Y, 2));
+    }
+
+    public float CoordsX (double x, double y) {
+        return (float) (Math.cos(angle) * x + Math.sin(angle) * y);
+    }
+
+    public float CoordsY (double x, double y) {
+        return (float) (Math.sin(angle) * x - Math.cos(angle) * y);
     }
 }

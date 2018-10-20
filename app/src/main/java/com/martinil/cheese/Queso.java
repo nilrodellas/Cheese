@@ -16,11 +16,11 @@ public class Queso {
     double rot;
     double radi;
     double massa;
-    double densitat = 1;
-    String idImatge;
+    double densitat = 7.64;
+    ImageView sprite;
 
     public Queso (int id, double aX, double aY, double vX, double vY, double X, double Y, double FX,
-                  double FY, double W, double rot, double radi, double massa, double idImatge) {
+                  double FY, double W, double rot, double radi, ImageView sprite) {
         this.id = id;
         this.aX = aX;
         this.aY = aY;
@@ -33,8 +33,8 @@ public class Queso {
         this.W = W;
         this.rot = rot;
         this.radi = radi;
-        this.massa = densitat * radi;
-        this.idImatge = idImatge;
+        this.massa = densitat * radi * radi * radi * 4 * 3.1415 / 3.;
+        this.sprite = sprite;
     }
 
 
