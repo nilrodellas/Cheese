@@ -19,9 +19,11 @@ public class MainActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private ImageView terra;
     private ImageView formatge1;
+    private ImageView formatge2;
     private int counter = 100;
     private physics my_physics;
     private Queso my_ques;
+    private Queso my_ques2;
     private ArrayList<Queso> Quesos = new ArrayList<>();
     private int TempsAcc = 400;
     int width = 1920;
@@ -33,15 +35,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         formatge1 = findViewById(R.id.f1);
+        formatge2 = findViewById(R.id.f2);
         terra = findViewById(R.id.terra);
 
         my_ques = new Queso(0,0,0,0,0,0,0,0,0,0,0,0.5, formatge1);
+        my_ques2 = new Queso(1,0,0,0,0,-3,0,0,0,0,0,0.5, formatge2);
         Quesos.add(my_ques);
+        Quesos.add(my_ques2);
         my_physics = new physics(Quesos);
         //formatge1.getLayoutParams().width = 100;
         //formatge1.getLayoutParams().height = 100;
         formatge1.setPivotX(100);
         formatge1.setPivotY(100);
+        formatge2.setPivotX(100);
+        formatge2.setPivotY(100);
         terra.setPivotX(1500);
         terra.setPivotY(1500);
 
@@ -51,9 +58,8 @@ public class MainActivity extends AppCompatActivity {
         updater();
     }
 
-    public void saltetDret (View view) {
-        my_physics.saltar(my_ques);
-    }
+    public void saltetDret (View view) { my_physics.saltar(my_ques);}
+    public void saltetEsq  (View view) { my_physics.saltar(my_ques2);}
 
     public void updater(){
         handler.postDelayed(new Runnable(){

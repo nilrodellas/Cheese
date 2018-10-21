@@ -3,10 +3,11 @@ package com.martinil.cheese;
 import java.util.ArrayList;
 
 public class physics {
-    double dt = 40./1000.; //Ok
+    double dt = 30./1000.; //Ok
     double c_reb = 0.35;  //Ok
+    double c_xoc = 0.5;
     double accAngular = 0.;
-    double velAngular = 0.05;
+    double velAngular = 0.01;
     double angle = 0; // Inicial, okei
     double limit_baixada = 1.2; //Angle límit baixada
     double limit_pujada = -1; //Angle límit pujada
@@ -17,6 +18,9 @@ public class physics {
     double factAcc = 0.;
     double factVel = 0.05;
     double factGrav = 0.35;
+    double offsetRot = 0.25;
+    double attenSaltX = 0.2;
+
     ArrayList<Queso> cossos;
 
     public physics(ArrayList<Queso> cossos){
@@ -46,7 +50,8 @@ public class physics {
             cos.Y = 0;
         }
         cos.W  = cos.vX / cos.radi;
-        cos.rot=  cos.W * dt + cos.rot;
+        cos.rot=  cos.W * dt + cos.rot + offsetRot;
+        //cos.rot = velRot + cos.rot;
     }
 
     public void colisions (Queso cos) {
@@ -54,12 +59,17 @@ public class physics {
             Queso cos2 = cossos.get(i);
             double d = distancia(cos, cos2);
             if ( d <= cos.radi + cos2.radi) {
+                cos.X  = -1.5 * cos.vX * dt + cos.X;
+                cos.Y  = - 1.5 *cos.vY * dt + cos.Y;
+                cos2.X  = -1.5*cos2.vX * dt + cos2.X;
+                cos2.Y  = -1.5*cos2.vY * dt + cos2.Y;
                 double patata = (cos.vX - cos2.vX) * (cos.X - cos2.X) + (cos.vY - cos2.vY) * (cos.Y - cos2.Y);
                 patata = 2* patata / (d*d*(cos.massa + cos2.massa));
-                cos.vX = cos.vX - patata * cos2.massa * (cos.X - cos2.X);
-                cos.vY = cos.vY - patata * cos2.massa * (cos.Y - cos2.Y);
-                cos2.vX = cos2.vX - patata * cos.massa * (cos2.X - cos.X);
-                cos2.vY = cos2.vY - patata * cos.massa * (cos2.Y - cos.Y);
+                cos.vX = (cos.vX - patata * cos2.massa * (cos.X - cos2.X)) *c_xoc;
+                cos.vY = (cos.vY - patata * cos2.massa * (cos.Y - cos2.Y)) ;
+                cos2.vX = (cos2.vX - patata * cos.massa * (cos2.X - cos.X)) *c_xoc;
+                cos2.vY = (cos2.vY - patata * cos.massa * (cos2.Y - cos.Y));
+
             }
         }
 
@@ -83,6 +93,7 @@ public class physics {
     public void saltar(Queso cos) {
         if (cos.Y < 0.1) {
             cos.vY = FSalt * cos.massa;
+            cos.vX = FSalt * cos.massa * attenSaltX + cos.vX;
         }
     }
 
