@@ -3,12 +3,17 @@ package com.martinil.cheese;
 import java.util.ArrayList;
 
 public class physics {
-    double dt = 30./1000.; //Ok
+    double dt = 40./1000.; //Ok
     double c_reb = 0.35;  //Ok
     double c_xoc = 0.5;
     double accAngular = 0.;
-    double velAngular = 0.01;
+    double velAngular = 0;
     double angle = 0; // Inicial, okei
+    double angle_in;
+    double angle_fi = 0;
+    double temps_canvi = 0;
+    double b = 0;
+    double t0 = 0;
     double limit_baixada = 1.2; //Angle límit baixada
     double limit_pujada = -1; //Angle límit pujada
     double FGrav = 9.81; //Okei
@@ -17,7 +22,7 @@ public class physics {
     double FSalt = 0.8; //Okei
     double factAcc = 0.;
     double factVel = 0.05;
-    double factGrav = 0.35;
+    double factGrav = 0.4;
     double offsetRot = 0.25;
     double attenSaltX = 0.2;
 
@@ -28,16 +33,22 @@ public class physics {
     }
 
     public void actualitzar_Terra () {
-        velAngular = velAngular + accAngular*dt;
-        angle = angle + velAngular*dt;
+        //velAngular = 1 / (1 + Math.exp(-3.5*(b*t0 - 1)));
+        //angle = angle + velAngular*dt;
+        angle = (angle_fi - angle_in) / (1 + Math.exp(-7*(b*t0 - 1))) + angle_in;
+        t0 = t0 + dt;
         if (angle > limit_baixada) { angle = limit_baixada;}
         if (angle < limit_pujada) {angle = limit_pujada;}
     }
 
-//    public void actualitzar_accAngular(){
-//        accAngular = (Math.random()-.5)*factAcc;
-//    }
-//
+    public void actualitzar_AngTem(){
+        angle_in = angle;
+        angle_fi = (limit_pujada - limit_baixada) * Math.random() + limit_baixada;
+        temps_canvi = Math.random() * 30;
+        b = (2.99573227355/7 + 1)/temps_canvi;
+        t0 = 0;
+    }
+
 
     public void actualitzar_queso (Queso cos) {
         cos.aX = cos.FX / cos.massa;
@@ -78,6 +89,15 @@ public class physics {
     public void colTerra (Queso cos) {
         if (cos.Y <= 0) {
             cos.vY = -cos.vY * c_reb;
+        }
+        if (cos.X > 6) {
+            cos.vX = -cos.vX*c_xoc;
+        }
+        if (cos.X < -6) {
+            cos.vX = -cos.vX*c_xoc;
+        }
+        if (cos.Y > 6) {
+            cos.vY = -cos.vY*c_xoc;
         }
     }
 

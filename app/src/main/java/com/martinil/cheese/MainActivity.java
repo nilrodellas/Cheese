@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         formatge2 = findViewById(R.id.f2);
         terra = findViewById(R.id.terra);
 
-        my_ques = new Queso(0,0,0,0,0,0,0,0,0,0,0,0.5, formatge1);
+        my_ques = new Queso(0,0,0,0,0,4,0,0,0,0,0,0.5, formatge1);
         my_ques2 = new Queso(1,0,0,0,0,-3,0,0,0,0,0,0.5, formatge2);
         Quesos.add(my_ques);
         Quesos.add(my_ques2);
@@ -64,23 +64,21 @@ public class MainActivity extends AppCompatActivity {
     public void updater(){
         handler.postDelayed(new Runnable(){
             public void run() {
-                counter ++;
-                if(counter > TempsAcc){
+                if(Math.abs(my_physics.angle_fi - my_physics.angle) < 0.01){
                     update(true);
-                    counter = 0;
                 }
                 else{
                     update(false);
                 }
-                handler.postDelayed(this, 20);
+                handler.postDelayed(this, 15);
 
             }
-        }, 20);
+        }, 15);
     }
 
     public void update(Boolean updateAcc){
         if(updateAcc){
-            actualitzar_velAngular(counter);
+            my_physics.actualitzar_AngTem();
         }
         my_physics.actualitzar_Terra();
         rotarPla();
@@ -93,10 +91,6 @@ public class MainActivity extends AppCompatActivity {
             moveQues(ques);
         }
 
-    }
-
-    public void actualitzar_velAngular(int i){
-        my_physics.velAngular = -my_physics.velAngular;
     }
 
     private void rotarPla () {
