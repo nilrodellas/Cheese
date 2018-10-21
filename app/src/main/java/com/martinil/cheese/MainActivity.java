@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
     private float deltaX1 = 1;
     private float deltaX2 = 3;
     private float deltaX3 = 7;
+    private float deltap = (float) 1;
+    private float pX = 0;
 
     private Handler handler = new Handler();
     private ImageView fons0;
@@ -63,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView fons2b;
     private ImageView fons3a;
     private ImageView fons3b;
+    private ImageView pedretes;
     private ImageView terra;
     private ImageView formatge1;
     private ImageView formatge2;
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         fons2b = findViewById(R.id.fons2b);
         fons3a = findViewById(R.id.fons3a);
         fons3b = findViewById(R.id.fons3b);
+        pedretes = findViewById(R.id.pedretes);
         terra = findViewById(R.id.terra);
 
         my_ques = new Queso(0,0,0,0,0,4,0,0,0,0,0,0.5, formatge1);
@@ -102,8 +106,10 @@ public class MainActivity extends AppCompatActivity {
         formatge1.setPivotY(100);
         formatge2.setPivotX(100);
         formatge2.setPivotY(100);
-        terra.setPivotX(1500);
-        terra.setPivotY(1500);
+        terra.setPivotX(1250);
+        terra.setPivotY(1250);
+        pedretes.setPivotX(1000);
+        pedretes.setPivotY(1000);
         fons0.setX(0);
         fons0.setY(0);
         fons1a.setX(0);
@@ -194,6 +200,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void rotarPla () {
         terra.setRotation((float) (my_physics.angle * 180 / 3.141592));
+        pedretes.setRotation((float) (my_physics.angle * 180 / 3.141592));
     }
 
     private void avancarCel () {
@@ -209,6 +216,14 @@ public class MainActivity extends AppCompatActivity {
         if (fons3b.getX() < -1919) {fons3b.setX(1920);}
         fons3a.setX(fons3a.getX() - deltaX3);
         fons3b.setX(fons3b.getX() - deltaX3);
+        pX = pX - deltap;
+        pedretes.setX(pedretes.getX() -deltap);
+        if (pedretes.getX() < -1910) {
+            pedretes.setX(1910);
+        }
+
+        //pedretes.setX(my_physics.CoordsX(pX, 0)*200 + width / 2 - 200);
+        //pedretes.setY(my_physics.CoordsY(pX, 0)*200 + height / 2 - 200);
     }
 
     private void moveQues(Queso cos) {

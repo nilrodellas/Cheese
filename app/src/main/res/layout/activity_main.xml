@@ -67,8 +67,8 @@
 
     <ImageView
         android:id="@+id/terra"
-        android:layout_width="3000px"
-        android:layout_height="3000px"
+        android:layout_width="2500px"
+        android:layout_height="2500px"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -97,6 +97,14 @@
         app:srcCompat="@mipmap/f2"
         tools:layout_editor_absoluteX="111dp"
         tools:layout_editor_absoluteY="186dp" />
+
+    <ImageView
+        android:id="@+id/pedretes"
+        android:layout_width="2000px"
+        android:layout_height="2000px"
+        app:srcCompat="@mipmap/pedretes"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="39dp" />
 
     <EditText
         android:id="@+id/write"
