@@ -51,9 +51,18 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+    private float deltaX1 = 1;
+    private float deltaX2 = 3;
+    private float deltaX3 = 7;
 
     private Handler handler = new Handler();
+    private ImageView fons0;
+    private ImageView fons1a;
+    private ImageView fons1b;
+    private ImageView fons2a;
+    private ImageView fons2b;
+    private ImageView fons3a;
+    private ImageView fons3b;
     private ImageView terra;
     private ImageView formatge1;
     private ImageView formatge2;
@@ -73,6 +82,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         formatge1 = findViewById(R.id.f1);
         formatge2 = findViewById(R.id.f2);
+        fons0 = findViewById(R.id.fons0);
+        fons1a = findViewById(R.id.fons1a);
+        fons1b = findViewById(R.id.fons1b);
+        fons2a = findViewById(R.id.fons2a);
+        fons2b = findViewById(R.id.fons2b);
+        fons3a = findViewById(R.id.fons3a);
+        fons3b = findViewById(R.id.fons3b);
         terra = findViewById(R.id.terra);
 
         my_ques = new Queso(0,0,0,0,0,4,0,0,0,0,0,0.5, formatge1);
@@ -88,7 +104,20 @@ public class MainActivity extends AppCompatActivity {
         formatge2.setPivotY(100);
         terra.setPivotX(1500);
         terra.setPivotY(1500);
-
+        fons0.setX(0);
+        fons0.setY(0);
+        fons1a.setX(0);
+        fons1a.setY(0);
+        fons1b.setX(1920);
+        fons1b.setY(0);
+        fons2a.setX(0);
+        fons2a.setY(0);
+        fons2b.setX(1920);
+        fons2b.setY(0);
+        fons3a.setX(0);
+        fons3a.setY(0);
+        fons3b.setX(1919);
+        fons3b.setY(0);
         //int width = this.getResources().getDisplayMetrics().widthPixels;
         //int height = this.getResources().getDisplayMetrics().heightPixels;
 
@@ -151,6 +180,7 @@ public class MainActivity extends AppCompatActivity {
         }
         my_physics.actualitzar_Terra();
         rotarPla();
+        avancarCel();
         for(int i = 0; i<Quesos.size(); i++){
             Queso ques = Quesos.get(i);
             my_physics.aplicarF(ques);
@@ -164,6 +194,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void rotarPla () {
         terra.setRotation((float) (my_physics.angle * 180 / 3.141592));
+    }
+
+    private void avancarCel () {
+        if (fons1a.getX() < -1919) {fons1a.setX(1920);}
+        if (fons1b.getX() < -1919) {fons1b.setX(1920);}
+        fons1a.setX(fons1a.getX() - deltaX1);
+        fons1b.setX(fons1b.getX() - deltaX1);
+        if (fons2a.getX() < -1919) {fons2a.setX(1920);}
+        if (fons2b.getX() < -1919) {fons2b.setX(1920);}
+        fons2a.setX(fons2a.getX() - deltaX2);
+        fons2b.setX(fons2b.getX() - deltaX2);
+        if (fons3a.getX() < -1919) {fons3a.setX(1920);}
+        if (fons3b.getX() < -1919) {fons3b.setX(1920);}
+        fons3a.setX(fons3a.getX() - deltaX3);
+        fons3b.setX(fons3b.getX() - deltaX3);
     }
 
     private void moveQues(Queso cos) {

@@ -8,6 +8,64 @@
     tools:context=".MainActivity">
 
     <ImageView
+        android:id="@+id/fons0"
+        android:layout_width="1920px"
+        android:layout_height="1080px"
+        app:srcCompat="@mipmap/fons0"
+        tools:layout_editor_absoluteX="178dp"
+        tools:layout_editor_absoluteY="56dp" />
+
+    <ImageView
+        android:id="@+id/fons1a"
+        android:layout_width="1920px"
+        android:layout_height="1080px"
+        app:srcCompat="@mipmap/fons1"
+        tools:layout_editor_absoluteX="120dp"
+        tools:layout_editor_absoluteY="111dp" />
+
+    <ImageView
+        android:id="@+id/fons1b"
+        android:layout_width="1920px"
+        android:layout_height="1080px"
+        app:srcCompat="@mipmap/fons1"
+        tools:layout_editor_absoluteX="120dp"
+        tools:layout_editor_absoluteY="111dp" />
+
+    <ImageView
+        android:id="@+id/fons2a"
+        android:layout_width="1920px"
+        android:layout_height="1080px"
+        app:srcCompat="@mipmap/fons2"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="39dp" />
+
+    <ImageView
+        android:id="@+id/fons2b"
+        android:layout_width="1920px"
+        android:layout_height="1080px"
+        app:srcCompat="@mipmap/fons2"
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="39dp" />
+
+    <ImageView
+        android:id="@+id/fons3a"
+        android:layout_width="1930px"
+        android:layout_height="1080px"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@mipmap/fons3"
+        tools:layout_editor_absoluteY="111dp" />
+
+    <ImageView
+        android:id="@+id/fons3b"
+        android:layout_width="1930px"
+        android:layout_height="1080px"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@mipmap/fons3"
+        tools:layout_editor_absoluteY="111dp" />
+
+    <ImageView
         android:id="@+id/terra"
         android:layout_width="3000px"
         android:layout_height="3000px"

@@ -1,6 +1,7 @@
 package com.martinil.cheese;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class physics {
     double dt = 40./1000.; //Ok
@@ -15,7 +16,7 @@ public class physics {
     double b = 0;
     double t0 = 0;
     double limit_baixada = 1.2; //Angle límit baixada
-    double limit_pujada = -1; //Angle límit pujada
+    double limit_pujada = -0.7; //Angle límit pujada
     double FGrav = 9.81; //Okei
     double factForca = 9.81; //Okei
     double factSuavitat = 4; //Okei
@@ -44,7 +45,7 @@ public class physics {
     public void actualitzar_AngTem(){
         angle_in = angle;
         angle_fi = (limit_pujada - limit_baixada) * Math.random() + limit_baixada;
-        temps_canvi = Math.random() * 30;
+        temps_canvi = (10 - 1) *Math.random() + 1;
         b = (2.99573227355/7 + 1)/temps_canvi;
         t0 = 0;
     }
