@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
+import android.graphics.drawable.AnimationDrawable;
 import android.media.Image;
 import android.os.Build;
 import android.os.Handler;
@@ -54,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
     private float deltaX1 = 1;
     private float deltaX2 = 3;
     private float deltaX3 = 7;
-    private float deltap = (float) 1;
-    private float pX = 0;
+    //private float deltaA = 10;
+   // private float deltap = (float) 3;
+   // private float pX = 0;
 
     private Handler handler = new Handler();
     private ImageView fons0;
@@ -65,7 +67,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView fons2b;
     private ImageView fons3a;
     private ImageView fons3b;
-    private ImageView pedretes;
+    //private ImageView arbres_a;
+    //private ImageView arbres_b;
+    //private ImageView pedretes;
     private ImageView terra;
     private ImageView formatge1;
     private ImageView formatge2;
@@ -74,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
     private Queso my_ques;
     private Queso my_ques2;
     private ArrayList<Queso> Quesos = new ArrayList<>();
-    private int TempsAcc = 400;
     int width = 1920;
     int height = 1080;
 
@@ -92,11 +95,13 @@ public class MainActivity extends AppCompatActivity {
         fons2b = findViewById(R.id.fons2b);
         fons3a = findViewById(R.id.fons3a);
         fons3b = findViewById(R.id.fons3b);
-        pedretes = findViewById(R.id.pedretes);
+        //arbres_a = findViewById(R.id.arbres_a);
+        //arbres_b = findViewById(R.id,arbres_b);
+        //pedretes = findViewById(R.id.pedretes);
         terra = findViewById(R.id.terra);
 
         my_ques = new Queso(0,0,0,0,0,4,0,0,0,0,0,0.5, formatge1);
-        my_ques2 = new Queso(1,0,0,0,0,-3,0,0,0,0,0,0.5, formatge2);
+        my_ques2 = new Queso(1,0,0,0,0,-3,0,0,0,0,3.141592 / 4.,0.5, formatge2);
         Quesos.add(my_ques);
         Quesos.add(my_ques2);
         my_physics = new physics(Quesos);
@@ -108,8 +113,10 @@ public class MainActivity extends AppCompatActivity {
         formatge2.setPivotY(100);
         terra.setPivotX(1250);
         terra.setPivotY(1250);
-        pedretes.setPivotX(1000);
-        pedretes.setPivotY(1000);
+        //pedretes.setPivotX(1000);
+        //pedretes.setPivotY(1000);
+        //pedretes.setX(0);
+        //pedretes.setY(-500);
         fons0.setX(0);
         fons0.setY(0);
         fons1a.setX(0);
@@ -124,8 +131,43 @@ public class MainActivity extends AppCompatActivity {
         fons3a.setY(0);
         fons3b.setX(1919);
         fons3b.setY(0);
+//        arbres_a.setX(0);
+//        arbres_a.setY(0);
+//        arbres_b.setX(1919);
+//        arbres_b.setY(0);
         //int width = this.getResources().getDisplayMetrics().widthPixels;
         //int height = this.getResources().getDisplayMetrics().heightPixels;
+
+
+//        AnimationDrawable anim = new AnimationDrawable();
+//        anim.addFrame(
+//                getResources().getDrawable(R.drawable.pedretes_1),
+//                25);
+//        anim.addFrame(
+//                getResources().getDrawable(R.drawable.pedretes_2),
+//                25);
+//        anim.addFrame(
+//                getResources().getDrawable(R.drawable.pedretes_3),
+//                25);
+//        anim.addFrame(
+//                getResources().getDrawable(R.drawable.pedretes_4),
+//                25);
+//        anim.addFrame(
+//                getResources().getDrawable(R.drawable.pedretes_5),
+//                25);
+//        anim.addFrame(
+//                getResources().getDrawable(R.drawable.pedretes_6),
+//                25);
+
+        //......So on, so forth until you have a satisfying animation sequence
+
+
+        //set ImageView to AnimatedDrawable
+        //pedretes.setImageDrawable(anim);
+
+        //if you want the animation to loop, set false
+       // anim.setOneShot(false);
+        //anim.start();
 
         updater();
 
@@ -200,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void rotarPla () {
         terra.setRotation((float) (my_physics.angle * 180 / 3.141592));
-        pedretes.setRotation((float) (my_physics.angle * 180 / 3.141592));
+        //pedretes.setRotation((float) (my_physics.angle * 180 / 3.141592));
     }
 
     private void avancarCel () {
@@ -216,12 +258,20 @@ public class MainActivity extends AppCompatActivity {
         if (fons3b.getX() < -1919) {fons3b.setX(1920);}
         fons3a.setX(fons3a.getX() - deltaX3);
         fons3b.setX(fons3b.getX() - deltaX3);
-        pX = pX - deltap;
-        pedretes.setX(pedretes.getX() -deltap);
-        if (pedretes.getX() < -1910) {
-            pedretes.setX(1910);
-        }
-
+//        if (arbres_a.getX() < -1919) {arbres_a.setX(1920);}
+//        if (arbres_b.getX() < -1919) {arbres_b.setX(1920);}
+//        arbres_a.setX(arbres_a.getX() - deltaA);
+//        arbres_b.setX(arbres_b.getX() - deltaA);
+        //pX = pX - deltap;
+//        pedretes.setX(pedretes.getX() -deltap);
+//        if (pedretes.getX() < -1910) {
+//            pedretes.setX(1910);
+//        }
+        //pedretes.setPivotX(pedretes.getPivotX() - (float) Math.cos(my_physics.angle) * pX);
+        //pedretes.setPivotY(pedretes.getPivotY() - (float) Math.sin (my_physics.angle) * pX);
+        //pedretes.setX((float) Math.cos(my_physics.angle) * pX);
+        //pedretes.setY((float) Math.sin(my_physics.angle) * pX);
+        //pedretes.setPivotY(pedretes.getPivotY());
         //pedretes.setX(my_physics.CoordsX(pX, 0)*200 + width / 2 - 200);
         //pedretes.setY(my_physics.CoordsY(pX, 0)*200 + height / 2 - 200);
     }

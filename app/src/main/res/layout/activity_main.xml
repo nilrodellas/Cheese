@@ -98,14 +98,6 @@
         tools:layout_editor_absoluteX="111dp"
         tools:layout_editor_absoluteY="186dp" />
 
-    <ImageView
-        android:id="@+id/pedretes"
-        android:layout_width="2000px"
-        android:layout_height="2000px"
-        app:srcCompat="@mipmap/pedretes"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="39dp" />
-
     <EditText
         android:id="@+id/write"
         android:layout_width="wrap_content"

@@ -7,25 +7,25 @@ public class physics {
     double dt = 40./1000.; //Ok
     double c_reb = 0.35;  //Ok
     double c_xoc = 0.5;
-    double accAngular = 0.;
-    double velAngular = 0;
+   // double accAngular = 0.;
+    //double velAngular = 0;
     double angle = 0; // Inicial, okei
     double angle_in;
-    double angle_fi = 0;
-    double temps_canvi = 0;
-    double b = 0;
+    double angle_fi = 0; //No cal tocar
+    double temps_canvi;
+    double b;
     double t0 = 0;
-    double limit_baixada = 1.2; //Angle límit baixada
+    double limit_baixada = 1.1; //Angle límit baixada
     double limit_pujada = -0.7; //Angle límit pujada
     double FGrav = 9.81; //Okei
-    double factForca = 9.81; //Okei
+    double factForca = 15; //Okei
     double factSuavitat = 4; //Okei
     double FSalt = 0.8; //Okei
-    double factAcc = 0.;
-    double factVel = 0.05;
-    double factGrav = 0.4;
+   // double factAcc = 0.;
+   // double factVel = 0.05;
+    double factGrav = 0.5;
     double offsetRot = 0.25;
-    double attenSaltX = 0.2;
+    double attenSaltX = 0.3;
 
     ArrayList<Queso> cossos;
 
@@ -45,7 +45,7 @@ public class physics {
     public void actualitzar_AngTem(){
         angle_in = angle;
         angle_fi = (limit_pujada - limit_baixada) * Math.random() + limit_baixada;
-        temps_canvi = (10 - 1) *Math.random() + 1;
+        temps_canvi = (10 - 2) *Math.random() + 2;
         b = (2.99573227355/7 + 1)/temps_canvi;
         t0 = 0;
     }
@@ -91,13 +91,13 @@ public class physics {
         if (cos.Y <= 0) {
             cos.vY = -cos.vY * c_reb;
         }
-        if (cos.X > 6) {
+        if (cos.X > 5.5) {
             cos.vX = -cos.vX*c_xoc;
         }
-        if (cos.X < -6) {
+        if (cos.X < -5.5) {
             cos.vX = -cos.vX*c_xoc;
         }
-        if (cos.Y > 6) {
+        if (cos.Y > 5.5) {
             cos.vY = -cos.vY*c_xoc;
         }
     }
